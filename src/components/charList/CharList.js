@@ -1,5 +1,6 @@
 import './charList.scss';
 import React, { useEffect, useState, useRef} from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
 import ErrorMassage from '../errorMassage/ErrorMassage';
@@ -19,8 +20,8 @@ const CharList = (props) => {
         onRequest(offset, true);
     }, [])
 
-    const onRequest = (offset, initial) => {
-        initial ? setNewItemsLoading(false) : setNewItemsLoading(true)
+    const onRequest = (offset, initial, ) => {
+        initial ? setNewItemsLoading(false) : setNewItemsLoading(true);
        
         getAllCharacters(offset)
             .then(onCharListLoaded)
@@ -48,37 +49,41 @@ const CharList = (props) => {
         itemRefs.current[i].focus();
     }
 
-
     const renderItems = (charList) => {
+        const items = charList.map(({id, name, thumbnail}, i) => {
+            return(
+                <CSSTransition key={id} timeout={500} classNames='char__item' >
+                    <li 
+                        className='char__item'
+                        tabIndex='0'
+                        onClick={() => onClickChar(id, i)}
+                        onKeyDown={(e) => {
+                            if (e.key === ' ' || e.key === "Enter") {
+                                onClickChar(id, i);
+                            }
+                        }}
+                        ref={el => itemRefs.current[i] = el}
+                    >
+                        <img 
+                            src={thumbnail} 
+                            alt={name}
+                            style = {
+                                thumbnail === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
+                                ? {objectFit: 'contain'}
+                                : {objectFit: 'cover'}
+                            }
+                        />
+                        <div className="char__name">{name}</div>
+                    </li>
+                </CSSTransition>
+            )
+        })
+
         return (
             <ul className="char__grid">
-                {charList.map(({id, name, thumbnail}, i) => {
-                    return(
-                        <li 
-                            className='char__item' 
-                            key={id}
-                            tabIndex='0'
-                            onClick={() => onClickChar(id, i)}
-                            onKeyDown={(e) => {
-                                if (e.key === ' ' || e.key === "Enter") {
-                                    onClickChar(id, i);
-                                }
-                            }}
-                            ref={el => itemRefs.current[i] = el}
-                        >
-                            <img 
-                                src={thumbnail} 
-                                alt={name}
-                                style = {
-                                    thumbnail === "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available.jpg"
-                                    ? {objectFit: 'contain'}
-                                    : {objectFit: 'cover'}
-                                }
-                            />
-                            <div className="char__name">{name}</div>
-                        </li>
-                    )
-                })}
+                <TransitionGroup component={null}>
+                    {items}
+                </TransitionGroup>
             </ul>
         )
     }

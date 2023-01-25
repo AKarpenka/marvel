@@ -1,5 +1,6 @@
 import { useHttp } from "../hooks/http.hook";
 
+
 const useMarvelService = () => {
     const {loading, request, error, clearError} = useHttp();
 
@@ -19,6 +20,18 @@ const useMarvelService = () => {
         }
     }
 
+    const _transformComics = (data) => {
+        return {
+            id: data.id,
+            thumbnail: `${data.thumbnail.path}.${data.thumbnail.extension}`,
+            title: data.title,
+            price: data.prices[1]?.price,
+            pageCount: data.pageCount,
+            description: data.description,
+            language: data.textObjects[0]?.language || "en-us"
+        }
+    }
+
     const getAllCharacters = async (offset = _baseOffset) => {
         const res = await request(`${_apiBase}characters?limit=9&offset=${offset}&${_apiKey}`);
         return res.data.results.map(_transformCharacter)
@@ -29,7 +42,25 @@ const useMarvelService = () => {
         return _transformCharacter(res.data.results[0]);  
     }
 
-    return {loading, error, getAllCharacters, getCharacter, clearError}
+    const getComicsList = async (offset = 0) => {
+        const res =  await request(`${_apiBase}comics?orderBy=issueNumber&limit=8&offset=${offset}&${_apiKey}`);
+        return res.data.results.map(_transformComics);  
+    }
+
+    const getSingleComic = async (id) => {
+        const res =  await request(`${_apiBase}comics/${id}?${_apiKey}`);
+        return _transformComics(res.data.results[0]);  
+    }
+
+    return {
+        loading, 
+        error, 
+        clearError,
+        getAllCharacters, 
+        getCharacter,
+        getComicsList,
+        getSingleComic
+    }
 }
 
 export default useMarvelService;

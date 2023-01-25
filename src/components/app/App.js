@@ -1,39 +1,27 @@
-import { useState } from "react";
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import AppHeader from "../appHeader/AppHeader";
-import RandomChar from "../randomChar/RandomChar";
-import CharList from "../charList/CharList";
-import CharInfo from "../charInfo/CharInfo";
-import ErrorBoundary from "../errorBoundary/ErrorBoundary";
+import {MainPage, ComicsPage, Page404, SingleComic} from '../pages';
+import { Suspense } from 'react';
+import Spinner from '../spinner/Spinner';
 
-import decoration from '../../resources/img/vision.png';
-
-
-const App = (props) => {
-
-    const [selectedChar, setSelectedChar] = useState(null);
-
-    const onCharSelected = (id) => {
-        setSelectedChar(id);
-    }
+const App = () => {
 
     return (
-        <div className="app">
-            <AppHeader/>
-            <main>
-                <ErrorBoundary>
-                    <RandomChar/>
-                </ErrorBoundary>
-                <div className="char__content">
-                    <ErrorBoundary>
-                        <CharList onCharSelected={onCharSelected}/>
-                    </ErrorBoundary>
-                    <ErrorBoundary>
-                        <CharInfo charId = {selectedChar} />
-                    </ErrorBoundary>
-                </div>
-                <img className="bg-decoration" src={decoration} alt="vision"/>
-            </main>
-        </div>
+        <Router>
+            <div className="app">
+                <AppHeader/>
+                <main>
+                    <Suspense fallback={<Spinner/>}>
+                        <Routes>
+                            <Route path='/' element={<MainPage/>}/>
+                            <Route path='/comics' element={<ComicsPage/>}/>
+                            <Route path='/comics/:comicId' element={<SingleComic/>}/>
+                            <Route path='*' element={<Page404/>}/>
+                        </Routes>
+                    </Suspense>
+                </main>
+            </div>
+        </Router>
     )
 }
 
