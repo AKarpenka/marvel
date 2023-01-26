@@ -5,6 +5,7 @@ import ErrorMassage from '../../components/errorMassage/ErrorMassage';
 import Spinner from '../../components/spinner/Spinner';
 import { Link } from 'react-router-dom';
 import AppBanner from '../../components/appBanner/AppBanner';
+import {Helmet} from "react-helmet";
 
 export const useAboutPage = (component, itemId) => {
     const [item, setItem] = useState(null);
@@ -58,16 +59,20 @@ export const useAboutPage = (component, itemId) => {
 }
 
 const View = ({item, component}) => {
-    const {description, thumbnail, title, price, pageCount, language} = item;
+    // const {description, thumbnail, title, price, pageCount, language} = item;
     return (
         <>
-            <img src={thumbnail} alt={title} className="single-comic__img"/>
+            <Helmet>    
+                <title>{item.name || item.title}</title>
+                <meta name="description" content="Page with single comic or character" />
+            </Helmet>
+            <img src={item.thumbnail} alt={item.name || item.title} className="single-comic__img"/>
             <div className="single-comic__info">
-                <h2 className="single-comic__name">{title}</h2>
-                <p className="single-comic__descr">{description}</p>
-                {component === 'comic' ? <p className="single-comic__descr">{pageCount} pages</p> : null}
-                {component === 'comic'? <p className="single-comic__descr">Language: {language}</p> : null}
-                {component === 'comic'? <div className="single-comic__price">{price}</div>: null}
+                <h2 className="single-comic__name">{item.name || item.title}</h2>
+                <p className="single-comic__descr">{item.description}</p>
+                {component === 'comic' ? <p className="single-comic__descr">{item.pageCount} pages</p> : null}
+                {component === 'comic'? <p className="single-comic__descr">Language: {item.language}</p> : null}
+                {component === 'comic'? <div className="single-comic__price">{item.price}</div>: null}
             </div>
             {component === 'comic'? <Link className="single-comic__back" to='/comics'>Back to all</Link> : null}
         </>
