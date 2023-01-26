@@ -4,6 +4,7 @@ import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
 import ErrorMassage from '../errorMassage/ErrorMassage';
 import Skeleton from '../skeleton/Skeleton';
+import SearchChar from '../searchChar/SearchChar';
 
 
 const CharInfo = (props) => {
@@ -30,11 +31,14 @@ const CharInfo = (props) => {
     }
 
     return (
-        <div className="char__info">
-            {char || loading || error ? null : <Skeleton/>}
-            {error ? <ErrorMassage/> : null}
-            {loading ? <Spinner/> : null}
-            {!(loading || error || !char) ? <View char={char}/> : null}
+        <div>
+            <div className="char__info">
+                {char || loading || error ? null : <Skeleton/>}
+                {error ? <ErrorMassage/> : null}
+                {loading ? <Spinner/> : null}
+                {!(loading || error || !char) ? <View char={char}/> : null}
+            </div>
+            <SearchChar />
         </div>
     )
 
