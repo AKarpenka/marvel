@@ -9,8 +9,10 @@ const SearchChar = () => {
     const [char, setChar] = useState();
 
     const {
-        loading, 
-        error, 
+        // loading, 
+        // error, 
+        process,
+        setProcess,
         clearError, 
         getCharacterByName
     } = useMarvelService();
@@ -24,7 +26,10 @@ const SearchChar = () => {
 
         getCharacterByName(name)
             .then(onItemLoaded)
+            .then(()=>setProcess('confirmed'))
     }
+
+    console.log(process);
 
     return (
         <>
@@ -53,14 +58,16 @@ const SearchChar = () => {
                             <button 
                                 className="button button__main"
                                 type="submit"
-                                disabled={loading}
+                                disabled={process === 'loading'}
                             >
                                 <div className="inner">find</div>
                             </button>
                         </div>
                     </div>
                     <ErrorMessage className='error' name='name' component='div'/>
-                    {error ? <div className="char__search-critical-error"><ErrorMessage /></div> : null}
+
+                    {process === 'error' ? <div className="char__search-critical-error"><ErrorMessage /></div> : null}
+
                     {
                         !char ? null : char.length > 0 ? 
                                     <div className='search__basics success'>

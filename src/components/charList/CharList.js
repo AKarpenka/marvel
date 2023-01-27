@@ -1,10 +1,25 @@
 import './charList.scss';
-import React, { useEffect, useState, useRef} from 'react';
+import React, { useEffect, useState, useRef, useMemo} from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import useMarvelService from '../../services/MarvelService';
 import Spinner from '../spinner/Spinner';
 import ErrorMassage from '../errorMassage/ErrorMassage';
 import PropTypes from 'prop-types';
+
+const setContent = (process, Component, newItemsLoading) => {
+    switch (process) {
+        case 'waiting':
+            return (<Spinner/>);
+        case 'loading': 
+            return newItemsLoading ? <Component /> :<Spinner/>;
+        case 'confirmed':
+            return (<Component/>);
+        case 'error':
+            return (<ErrorMassage/>);
+        default:
+            throw new Error('unexpected process state');
+    }
+}
 
 const CharList = (props) => {
 
@@ -14,7 +29,7 @@ const CharList = (props) => {
     const [charEnded, setCharEnded] = useState(false);
 
 
-    const {loading, error, getAllCharacters} = useMarvelService();
+    const {setProcess, process, getAllCharacters} = useMarvelService();
 
     useEffect(()=>{
         onRequest(offset, true);
@@ -25,6 +40,7 @@ const CharList = (props) => {
        
         getAllCharacters(offset)
             .then(onCharListLoaded)
+            .then(()=>setProcess('confirmed'))
     }
 
     const onCharListLoaded = (newCharList) => {
@@ -88,11 +104,15 @@ const CharList = (props) => {
         )
     }
 
+    const elements = useMemo(()=> {
+        return setContent(process, () => renderItems(charList), newItemsLoading );
+    }, [process]);
+
     return (
         <div className="char__list">
-            {renderItems(charList)}
-            {loading && !newItemsLoading ? <Spinner/> : null}
-            {error ? <ErrorMassage/> : null}
+
+            {elements}
+
             {newItemsLoading ? 
                 <Spinner/> : 
                 <button 

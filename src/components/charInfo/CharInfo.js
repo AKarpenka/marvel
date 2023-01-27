@@ -1,17 +1,15 @@
 import { useState, useEffect } from 'react';
 import './charInfo.scss';
 import useMarvelService from '../../services/MarvelService';
-import Spinner from '../spinner/Spinner';
-import ErrorMassage from '../errorMassage/ErrorMassage';
-import Skeleton from '../skeleton/Skeleton';
 import SearchChar from '../searchChar/SearchChar';
+import setContent from '../../utils/setContent';
 
 
 const CharInfo = (props) => {
 
     const [char, setChar] = useState(null);
 
-    const {loading, error, getCharacter, clearError} = useMarvelService();
+    const {setProcess, process, getCharacter, clearError} = useMarvelService();
 
     useEffect(() => {
         updateCharacter();
@@ -27,16 +25,14 @@ const CharInfo = (props) => {
         if(!charId) return;
 
         getCharacter(charId)
-            .then(onCharacterLoaded);
+            .then(onCharacterLoaded)
+            .then(()=>setProcess('confirmed'))
     }
 
     return (
         <div>
             <div className="char__info">
-                {char || loading || error ? null : <Skeleton/>}
-                {error ? <ErrorMassage/> : null}
-                {loading ? <Spinner/> : null}
-                {!(loading || error || !char) ? <View char={char}/> : null}
+                {setContent(process, View, char)}
             </div>
             <SearchChar />
         </div>
@@ -44,9 +40,8 @@ const CharInfo = (props) => {
 
 }
 
-
-const View = ({char}) => {
-    const {name, description, thumbnail, homepage, wiki, comics} = char;
+const View = ({data}) => {
+    const {name, description, thumbnail, homepage, wiki, comics} = data;
 
     return (
         <>
