@@ -1,70 +1,46 @@
-# Getting Started with Create React App
+# Marvel Information Portal
+Information portal about Marvel characters and comics. 
+From the user's point of view:
+On the Characters tab you can:
+- get a random character, as well as learn more about him by clicking on the 'Homepage' or 'Wiki' links;
+- get a list of characters in the form of cards, by clicking on which you can find out more detailed information: links to more detailed information, a short description and a list of comics in which this character is present;
+- if you need to get more characters than 9, there is a 'load more' button at the bottom;
+- filter characters by name and find the right one, for this there is a field 'find a character by name'.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+On the Comics tab you can:
+- see the full list of comics with title and price, and download more comics if needed;
+- choose one of the comics and go to the page with more detailed information about it.
 
-## Available Scripts
+Technical information:
+- React.js is based on functional components.
+- The application implements lazy loading for loading characters or comics.
+- For searching, the Formik and Yup library is used for more convenient validation of the entered data. 
+- The react-helmet library is used for more convenient work with head.
+- A service has been implemented to work with the open marvel api, with which you can get information about marvel.
 
-In the project directory, you can run:
+Try it: https://marvel-info-sk.vercel.app
 
-### `yarn start`
+`ReactJS`  `Sass`  `Formik`  `Yup`  `React-Helmet`  `Lazy loading`  `Open API`  
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+# Preview 
+<p align="center">
+  <img src="client/public/ToDoApp.gif" width="500"/>
+</p>
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+# How to install 
+1. Clone the repository:
+```cmd
+YourFolderName > git clone git@github.com:AKarpenka/marvel.git
+```
 
-### `yarn test`
+2. Install npm packages for the client:
+```cmd
+marvel > npm i
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+# How to run 
+```cmd
+marvel > npm run start
+```
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+<sub>Made in 2023</sub>
