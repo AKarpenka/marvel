@@ -1,4 +1,4 @@
-# Marvel Information Portal
+# ⭐ Marvel Information Portal
 Information portal about Marvel characters and comics. 
 ### From the user's point of view:
 **On the Characters tab you can:**
