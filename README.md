@@ -24,7 +24,7 @@ Information portal about Marvel characters and comics.
 
 # Preview 
 <p align="center">
-  <img src="public/marvel.gif" width="700"/>
+  <img src="public/marvel.gif" width="800"/>
 </p>
 
 # How to install 
