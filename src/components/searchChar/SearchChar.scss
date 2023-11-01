@@ -50,3 +50,18 @@
     color: green;
     padding: 10px 5px;
 }
+
+@media (max-width: 400px) {
+    .search {
+        &__basics {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        &__btns {
+            .button {
+                width: 100%;
+            }
+        }
+    }
+}

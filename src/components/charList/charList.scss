@@ -4,7 +4,7 @@
     &__content {
         margin-top: 50px;
         display: grid;
-        grid-template-columns: 650px 425px;
+        grid-template-columns: 425px 650px;
         column-gap: 25px;
         align-items: start;
     }
@@ -54,5 +54,37 @@
         line-height: 29px;
         text-transform: uppercase;
         color: #fff;
+    }
+}
+
+@media (max-width: 1100px) {
+    .char {
+        &__content {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+
+            div {
+                width: 100%;
+            }
+        }
+    }
+}
+
+@media (max-width: 750px) {
+    .char {
+        &__grid {
+            grid-template-columns: repeat(2, 200px);
+            justify-content: center;
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .char {
+        &__grid {
+            grid-template-columns: 200px;
+            justify-content: center;
+        }
     }
 }
