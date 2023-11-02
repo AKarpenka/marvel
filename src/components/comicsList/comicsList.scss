@@ -34,3 +34,11 @@
         }
     }
 }
+
+@media (max-width: 400px) {
+    .comics {
+        &__grid {
+            justify-content: center;
+        }
+    }
+}

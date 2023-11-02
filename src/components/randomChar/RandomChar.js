@@ -33,13 +33,13 @@ const RandomChar = () => {
                     Random character for today!<br/>
                     Do you want to get to know him better?
                 </p>
+                <img src={mjolnir} alt="mjolnir" className="randomchar__decoration"/>
                 <p className="randomchar__title">
                     Or choose another one
                 </p>
                 <button className="button button__main" onClick={getRandomCharecter}>
                     <div className="inner">try it</div>
                 </button>
-                <img src={mjolnir} alt="mjolnir" className="randomchar__decoration"/>
             </div>
         </div>
     )
