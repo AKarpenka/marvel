@@ -18,3 +18,55 @@
         }
     }
 }
+
+@media (max-width: 800px) {
+    .app {
+        &__banner {
+            height: auto;
+            padding-bottom: 20px;
+
+            &-text {
+                padding-left: 10px;
+            }
+        }
+    }
+}
+
+@media (max-width: 600px) {
+    .app {
+        &__banner {
+            height: auto;
+            padding-bottom: 0;
+
+            display: grid;
+            grid-template-columns: 160px 1fr;
+
+            &-text {
+                grid-row-end: span 3;
+                align-self: center;
+            }
+
+            img:first-child {
+                padding-top: 20px;
+            }
+        }
+    }
+}
+
+@media (max-width: 400px) {
+    .app {
+        &__banner {
+            grid-template-columns: 100px 1fr;
+
+            &-text {
+                padding-bottom: 20px;
+                padding-left: 20px;
+                font-size: 14pt;
+            }
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+}
